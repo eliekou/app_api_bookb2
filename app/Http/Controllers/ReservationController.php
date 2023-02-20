@@ -12,9 +12,11 @@ class ReservationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+
+    
+    public function index()
     {
-        //
+        return 'R"eservations';
     }
 
     /**
@@ -30,7 +32,7 @@ class ReservationController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        //
+        return 'R"eservations';
     }
 
     /**
