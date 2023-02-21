@@ -11,9 +11,9 @@ class ExampleTest1 extends TestCase
     /**
      * A basic feature test example.
      */
-    public function test_example(): void
+    public function test_example_assignment(): void
     {
-        $response = $this->get('/');
+        $response = $this->get('/1');
 
         $response->assertStatus(200);
     }
