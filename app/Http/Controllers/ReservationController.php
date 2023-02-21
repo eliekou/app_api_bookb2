@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Carbon\Carbon;
 
 class ReservationController extends Controller
 {
@@ -28,10 +30,55 @@ class ReservationController extends Controller
         
 
     ])->json();
-    dd($response);
+    //dd($response);
+    //dd($response['Reservations'][0]['StartUtc']);
+    foreach($response['Customers'] as $res1_)
+    User::create([
+        'id' => $res1_['Id'],
+        'First name' => $res1_['FirstName'],
+        'Last name' => $res1_['LastName'],
+        'email' => $res1_['Email'],
+        'Phone' => $res1_['Phone'],
 
-    $reservation = new Reservation($response['Reservations']);
-    $reservation->save();
+        //'StartUtc' => $res_['StartUtc'],
+        //'EndUtc' => $res_['EndUtc'],
+        //'State' => $res_['State']
+    ]);
+
+    foreach($response['Reservations'] as $res_)
+    //$res_= $response['Reservations'][0];
+    Reservation::create([
+        'id' => $res_['Id'],
+        'source' => $res_['Origin'],
+        'user_id' => $res_['CustomerId'],
+        //'StartUtc' => $res_['StartUtc'],
+        //'EndUtc' => $res_['EndUtc'],
+        'State' => $res_['State']
+    ]);
+    //foreach($response['Customers'] as $res1_)
+    //$res1_= $response['Customers'][0];
+
+    //$res2_= $response['Customers'][1];
+    
+    /*User::create([
+        'id' => $res_['Id'],
+        'First name' => $res2_['FirstName'],
+        'Last name' => $res2_['LastName'],
+        'email' => $res2_['Email'],
+
+        //'StartUtc' => $res_['StartUtc'],
+        //'EndUtc' => $res_['EndUtc'],
+        //'State' => $res_['State']
+    ]);*/
+    //endforeach
+    //($res_['StartUtc']);
+    
+    //$reservation = new Reservation($response['Reservations'][0]);
+    /*$rep = json_encode($response['Reservations'][0]);
+    $reservation = new Reservation();
+    $reservation->forceFill($response['Reservations'][0]);*/
+    //dd($reservation);
+    //$reservation->save();
     }
 
     public function index()

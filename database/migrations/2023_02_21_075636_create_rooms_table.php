@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('reserved');
 
 
-            $table->unsignedBigInteger('reservation_id');
-            $table->foreign('reservation_id')->references('id')->on('reservations');
+            //$table->unsignedBigInteger('reservation_id');
+            //$table->foreign('reservation_id')->references('id')->on('reservations');
             //$table->foreignId('reservation_id')->constrained('reservations');
 
 
