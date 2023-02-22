@@ -13,7 +13,7 @@ class ExampleTest1 extends TestCase
      */
     public function test_example_assignment(): void
     {
-        $response = $this->get('/1');
+        $response = $this->get('/');
 
         $response->assertStatus(200);
     }
