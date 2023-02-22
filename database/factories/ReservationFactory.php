@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Reservation>
@@ -19,10 +20,12 @@ class ReservationFactory extends Factory
         return [
             'created_at' => now(),
             'status' => Str::random(10),
-            'user_id' => 1,
+            'user_id' =>Str::random(10),
+            'id'=>Str::random(20),
+            'State'=>Str::random(5),
             'source'=> fake()->name(),
-            'start'=> fake()-> dateTimeThisMonth(),
-            'end'=> fake()-> dateTimeThisMonth(),
+            'StartUtc'=> fake()-> dateTimeThisMonth(),
+            'EndUtc'=> fake()-> dateTimeThisMonth(),
         ];
     }
 }
