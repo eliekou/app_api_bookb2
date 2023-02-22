@@ -17,12 +17,13 @@ class ReservationController extends Controller
      * Display a listing of the resource.
      */
     public function test(){
-
+    
+        //Http Client post to get data from mews 
      $response = Http::post('https://api.mews-demo.com/api/connector/v1/reservations/getAll',[
         'email' => 'connector-api@mews.li',
         'Password' => 'connector-API-2021',
         "StartUtc"=> "2023-08-01T00:00:00Z",
-        "EndUtc"=> "2023-10-07T00:00:00Z",
+        "EndUtc"=> "2023-11-07T00:00:00Z",
         
         "ClientToken"=> "E0D439EE522F44368DC78E1BFB03710C-D24FB11DBE31D4621C4817E028D9E1D",
         "AccessToken"=> "7059D2C25BF64EA681ACAB3A00B859CC-D91BFF2B1E3047A3E0DEC1D57BE1382",
@@ -30,8 +31,9 @@ class ReservationController extends Controller
         
 
     ])->json();
-    //dd($response);
-    //dd($response['Reservations'][0]['StartUtc']);
+    
+
+    //Store the customers into the User model
     foreach($response['Customers'] as $res1_)
     User::create([
         'id' => $res1_['Id'],
@@ -45,8 +47,10 @@ class ReservationController extends Controller
         //'State' => $res_['State']
     ]);
 
+
+    //Store the Reservations into the Reservation Model
     foreach($response['Reservations'] as $res_)
-    //$res_= $response['Reservations'][0];
+    
     Reservation::create([
         'id' => $res_['Id'],
         'source' => $res_['Origin'],
@@ -55,35 +59,12 @@ class ReservationController extends Controller
         //'EndUtc' => $res_['EndUtc'],
         'State' => $res_['State']
     ]);
-    //foreach($response['Customers'] as $res1_)
-    //$res1_= $response['Customers'][0];
-
-    //$res2_= $response['Customers'][1];
     
-    /*User::create([
-        'id' => $res_['Id'],
-        'First name' => $res2_['FirstName'],
-        'Last name' => $res2_['LastName'],
-        'email' => $res2_['Email'],
-
-        //'StartUtc' => $res_['StartUtc'],
-        //'EndUtc' => $res_['EndUtc'],
-        //'State' => $res_['State']
-    ]);*/
-    //endforeach
-    //($res_['StartUtc']);
-    
-    //$reservation = new Reservation($response['Reservations'][0]);
-    /*$rep = json_encode($response['Reservations'][0]);
-    $reservation = new Reservation();
-    $reservation->forceFill($response['Reservations'][0]);*/
-    //dd($reservation);
-    //$reservation->save();
     }
 
     public function index()
     {
-        return 'R"eservations';
+        return 'Reservations';
     }
 
     /**
